@@ -26,6 +26,17 @@ public class BasicItemController {
         return "basic/item";
 
     }
+    // 향후 이렇게 사용할수있으면 이렇게 사용하자
+    // 같은 url인데 method로 기능을 구분 해주는 방법
+    @GetMapping("/add")
+    public String addForm() {
+        return "basic/addForm";
+    }
+
+    @PostMapping("/add")
+    public String save() {
+        return "basic/addForm";
+    }
 
 
     /**
