@@ -68,11 +68,33 @@ public class BasicItemController {
 
 
 
-    @PostMapping("/add")
+    //@PostMapping("/add")
     public String addItemV4(Item item){
         itemRepository.save(item);
         //model.addAttribute("item",item); 자동 추가, 생략 가능
         return "basic/item";
+    }
+
+    @PostMapping("/add")
+    public String addItemV5(Item item){
+        itemRepository.save(item);
+        return "redirect:/basic/items/ " + item.getId();
+    }
+
+
+
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable long itemId, Model model) {
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item",item);
+        return "basic/editForm";
+    }
+
+    @PostMapping("/{itemId}/edit")
+    public String editForm(@PathVariable long itemId, @ModelAttribute Item item) {
+        itemRepository.update(itemId,item);
+        return "redirect:/basic/items/{itemId}"; //스프링에서 redirect 하는 방법
+
     }
 
 
