@@ -75,13 +75,21 @@ public class BasicItemController {
         return "basic/item";
     }
 
-    @PostMapping("/add")
+    //@PostMapping("/add")
     public String addItemV5(Item item){
         itemRepository.save(item);
         return "redirect:/basic/items/ " + item.getId();
     }
 
-
+    //사용자 입장에서는 이게 잘 들었갔는지 아닌지 확실히 알수가 없다
+    //때문에 이런식으로 파라미터를 넘겨주면 메시지를 보내줄수 있다
+    @PostMapping("/add")
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes){
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId",savedItem,getId());
+        redirectAttributes.addAttribute("status",true);
+        return "redirect:/basic/items/{itemId}";
+    }
 
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable long itemId, Model model) {
