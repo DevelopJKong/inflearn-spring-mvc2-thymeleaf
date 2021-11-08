@@ -31,7 +31,8 @@ public class BasicItemController {
     // 향후 이렇게 사용할수있으면 이렇게 사용하자
     // 같은 url인데 method로 기능을 구분 해주는 방법
     @GetMapping("/add")
-    public String addForm() {
+    public String addForm(Model model) {
+        model.addAttribute("item",new Item());
         return "basic/addForm";
     }
 
